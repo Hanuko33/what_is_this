@@ -1,1 +1,2 @@
-print -p Hello World!\n
+print -p Hello World!
+exit

@@ -3,7 +3,6 @@
 #include <dirent.h>
 #include "cmodules/print.h"
 #include "cmodules/stack.h"
-#include "cmodules/run.h"
 
 #define MAXFILES 256
 
@@ -36,6 +35,43 @@ void reset()
     } 
 }
 
+void script_handler(FILE *file)
+{
+    while (1)
+    {
+        char command[8192];
+        fgets(command, sizeof(command), file);
+        if (compare(3, command, "add"))
+            add(command);
+        if (compare(5, command, "print"))
+            print(command);
+        if (compare(4, command, "exit"))
+            return;
+        if (compare(5, command, "reset"))
+            reset();
+        if (compare(9, command, "substract"))
+            substract(command);
+        if (compare(3, command, "run"))
+        {
+            FILE *file2;
+            char filename[128] = "bin/";
+            int j = 4;
+            for (int i = 4; command[i] != '\n'; i++)
+            {
+                filename[j] = command[i];
+                j++;
+            }    
+            file2 = fopen(filename, "r");
+            if (file2 == NULL)
+            {
+                    printf("Unable to open!\n"); return;
+            }
+            script_handler(file2);
+            fclose(file2);
+        } 
+    }
+}
+
 void keyboard_handler()
 {
     fgets(input, sizeof(char) * 8192, stdin);
@@ -54,7 +90,23 @@ void keyboard_handler()
     if (compare(9, input, "substract"))
         substract(input);
     if (compare(3, input, "run"))
-        run(input);
+    {
+        FILE *file;
+        char filename[128] = "bin/";
+        int j = 4;
+        for (int i = 4; input[i] != '\n'; i++)
+        {
+            filename[j] = input[i];
+            j++;
+        }    
+        file = fopen(filename, "r");
+        if (file == NULL)
+        {
+            printf("Unable to open!\n"); return;
+        }
+        script_handler(file);
+        fclose(file);
+    }
 }
 
 

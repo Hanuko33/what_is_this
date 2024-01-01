@@ -1,0 +1,12 @@
+print -s
+print -p adding...
+add 1
+print -s
+print -p substracting *2...
+substract 1
+substract 1
+print -s
+print -p resetting...
+reset
+print -s
+exit
