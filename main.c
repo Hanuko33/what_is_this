@@ -3,6 +3,7 @@
 #include <dirent.h>
 #include "cmodules/print.h"
 #include "cmodules/stack.h"
+#include "man.h"
 
 #define MAXFILES 256
 
@@ -47,6 +48,8 @@ void script_handler(FILE *file)
             print(command);
         if (compare(4, command, "exit"))
             return;
+        if (compare(3, command, "man"))
+            man(command);
         if (compare(5, command, "reset"))
             reset();
         if (compare(9, command, "substract"))
@@ -87,6 +90,8 @@ void keyboard_handler()
     if (compare(5, input, "reset"))
         reset();
 
+    if (compare(3, input, "man"))
+        man(input);
     if (compare(9, input, "substract"))
         substract(input);
     if (compare(3, input, "run"))
