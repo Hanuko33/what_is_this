@@ -6,6 +6,7 @@
 void man(const char * input);
 
 void man_print();
+void man_sleep();
 void man_add();
 void man_substract();
 

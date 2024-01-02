@@ -5,6 +5,12 @@
 
 extern int compare(int size, const char *a, const char *b);
 
+void man_sleep()
+{
+    printf("sleep\n usage: sleep [time]\n");
+    printf(" time - milliseconds\n");
+}
+
 void man_print()
 {
     printf("print\n usage: print -[h/s/p] ...\n");

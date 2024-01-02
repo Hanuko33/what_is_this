@@ -1,0 +1,10 @@
+print -p What is this???
+add 0
+add 0
+add 0
+add 0
+print -s
+sleep 1000
+print -p Good question!
+exit
+

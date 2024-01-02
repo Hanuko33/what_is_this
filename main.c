@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <dirent.h>
 #include "cmodules/print.h"
+#include "cmodules/sleep.h"
 #include "cmodules/stack.h"
 #include "man.h"
 
@@ -44,6 +45,8 @@ void script_handler(FILE *file)
         fgets(command, sizeof(command), file);
         if (compare(3, command, "add"))
             add(command);
+        if (compare(5, command, "sleep"))
+            sleep_(command);
         if (compare(5, command, "print"))
             print(command);
         if (compare(4, command, "exit"))
@@ -83,6 +86,8 @@ void keyboard_handler()
     
     if (compare(5, input, "print"))
         print(input);
+    if (compare(5, input, "sleep"))
+        sleep_(input);
     
     if (compare(3, input, "add"))
         add(input);
